@@ -1,0 +1,20 @@
+#features-cards{padding:0px; background:transparent!important;}
+.notifications-scroll{float:left;width:100%;background:blue;color:#fff;padding: 5px 0;line-height:1.5;}
+.notifications-scroll marquee{}
+.notifications-scroll a{color:#fff;font-weight:bold;}
+.modal-backdrop.show{z-index:99!important;}
+.my-sidebar{margin-top: auto !important;margin-bottom: auto !important;background: #fff;padding: 50px;border-top-left-radius: 12px;border-bottom-left-radius: 12px;height:500px;}
+.my-auto{margin-top: auto !important;margin-bottom: auto !important;background: #fff;padding: 50px;box-shadow: 1px 4px 6px 2px #ccc;border-radius: 12px;}
+.custom_content{max-width:1024px;margin:0 auto;}
+.page_content .input-group{}
+
+.pagemenu li{
+	padding: 8px;
+    list-style-type: disclosure-closed;
+}
+.pagemenu li a{
+	text-decoration: none;
+}
+.activesub{
+	background-color: #eee;
+}

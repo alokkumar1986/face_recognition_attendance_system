@@ -1,0 +1,70 @@
+{% extends "master.html" %}
+{% block main %}
+
+<form method="post" action="/generate-attendance-report" class="row mt-5">
+    {% comment %} <div class="col-md-4 mt-5">
+        <label for="member">Select Member:</label>
+        <select id="member" name="member" class="form-control">
+            <option value="">Select Member</option>
+            {% for member in members %}
+                <option value="{{ member.id }}">{{ member.name }}</option>
+            {% endfor %}
+        </select>
+    </div> {% endcomment %}
+    {% csrf_token %}
+    <div class="col-md-4 mt-5">
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="start_date" class="form-control" value={{fdate}} required>
+    </div>
+    <div class="col-md-4 mt-5">
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="end_date" class="form-control" value="{{tdate}}" required>
+    </div>
+    <div class="col-md-4 mt-7">
+    <label for="end_date">&nbsp;</label>
+    <button type="submit" class="btn btn-success">Generate Report</button>
+    </div>
+</form>
+{% comment %} {{attendance_data}} {% endcomment %}
+{% if attendance_data %}
+    <h2 class="mt-5">Attendance Report</h2>
+    <p>Showing attendance records from {{ fdate }} to {{ tdate }}</p>
+{% elif fdate %}
+    <h2 class="mt-5">No Attendance Records Found</h2>
+{% endif %}
+
+{% if attendance_data %}
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Sl No</th>
+                <th>Member Name</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in attendance_data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ record.name }}</td>
+                <td>{{ record.adate }}</td>
+                <td>{{ record.atime }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% comment %} <button type="button" onclick="window.location.href='/generate-attendance-report'" class="btn btn-primary">Download Attendance Report</button> {% endcomment %}
+
+{% endif %}
+
+<form method="post" action="/generate-attendance-report">
+    {% csrf_token %}
+    <input type="hidden" name="download" value="true">
+    <input type="hidden" name="start_date" value="{{ fdate }}">
+    <input type="hidden" name="end_date" value="{{ tdate }}">
+    {% comment %} <input type="hidden" name="member" value="{{ member.id }}"> {% endcomment %}
+    <button type="submit" class="btn btn-primary">Download Excel Report</button>
+</form>
+
+{% endblock main %}
